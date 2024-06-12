@@ -1,0 +1,29 @@
+########## Dataflow Job - equivalent code in REST API
+POST /v1b3/projects/proud-climber-421817/locations/us-central1/templates:launch?gcsPath=gs://dataflow-templates-us-central1/latest/GCS_Text_to_BigQuery
+{
+    "jobName": "batch_bucket_bq_job",
+    "environment": {
+        "bypassTempDirValidation": false,
+        "tempLocation": "gs://mt_devops_bkt_01/temp/",
+        "ipConfiguration": "WORKER_IP_UNSPECIFIED",
+        "enableStreamingEngine": false,
+        "additionalExperiments": [],
+        "additionalUserLabels": {}
+    },
+    "parameters": {
+        "inputFilePattern": "gs://mt_devops_bkt_01/landing_zone/user.csv",
+        "JSONPath": "gs://mt_devops_bkt_01/metadata/bq_schema.json",
+        "outputTable": "proud-climber-421817:streamingDataSet.users",
+        "bigQueryLoadingTemporaryDirectory": "gs://mt_devops_bkt_01/temp/"
+    }
+}
+
+
+############ Command Line equivalent code
+gcloud dataflow jobs run batch_bucket_bq_job \
+--gcs-location gs://dataflow-templates-us-central1/latest/GCS_Text_to_BigQuery \
+--region us-central1 \
+--staging-location gs://mt_devops_bkt_01/temp/ \
+--additional-user-labels "" \
+--parameters inputFilePattern=gs://mt_devops_bkt_01/landing_zone/user.csv,JSONPath=gs://mt_devops_bkt_01/metadata/bq_schema.json,outputTable=proud-climber-421817:streamingDataSet.users,bigQueryLoadingTemporaryDirectory=gs://mt_devops_bkt_01/temp/
+

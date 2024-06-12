@@ -1,0 +1,10 @@
+# Run the below command from Gcloud Shell.
+
+
+gcloud dataflow jobs run stream_pubsubtoBQ \
+--gcs-location gs://dataflow-templates-us-east4/latest/PubSub_to_BigQuery \
+--region us-east4 \
+--staging-location gs://mt_devops_bkt_01/temp/ \
+--additional-experiments streaming_mode_exactly_once \
+--enable-streaming-engine \
+--parameters inputTopic=projects/proud-climber-421817/topics/streamingPubSubTopic,outputTableSpec=proud-climber-421817:streamingDataSet.tbl_streamingData
