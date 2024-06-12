@@ -1,0 +1,5 @@
+['FDA15', '9.3', 'Low Fat', '0.016047301', 'Dairy', '249.8092', 'OUT049', '1999', 'Medium', 'Tier 1', 'Grocery Store Type1', '3735.138']
+['DRC01', '5.92', 'Regular', '0.019278216', 'Soft Drinks', '48.2692', 'OUT018', '2009', 'Medium', 'Tier 3', 'Supermarket Type2', '443.4228']
+['FDN15', '17.5', 'Low Fat', '0.016760075', 'Meat', '141.618', 'OUT049', '1999', 'Medium', 'Tier 1', 'Supermarket Type1', '2097.27']
+['FDP36', '10.395', 'Regular', '0', 'Baking Goods', '51.4008', 'OUT018', '2009', 'Medium', 'Tier 3', 'Supermarket Type2', '556.6088']
+['FDP10', '', 'Low Fat', '0.127469857', 'Snack Foods', '107.7622', 'OUT027', '1985', 'Medium', 'Tier 3', 'Supermarket Type3', '4022.7636']
