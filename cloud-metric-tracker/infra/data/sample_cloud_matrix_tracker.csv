@@ -1,0 +1,16 @@
+index,cloud_provider,vp_group,category,subscription,recognized,notes
+1,AWS,Group1,CategoryA,Subscription1,0.5,0.3,0.2,Initial metrics for AWS
+2,Azure,Group2,CategoryB,Subscription2,0.7,0.1,0.4,Quarterly review
+3,GCP,Group1,CategoryC,Subscription3,0.9,0.5,0.3,Yearly analysis
+4,AWS,Group3,CategoryA,Subscription4,0.2,0.6,0.1,New subscription
+5,Azure,Group1,CategoryB,Subscription5,0.8,0.3,0.5,Updated metrics
+6,GCP,Group2,CategoryC,Subscription6,0.4,0.7,0.2,Final report
+7,AWS,Group3,CategoryA,Subscription7,0.3,0.4,0.6,Performance review
+8,Azure,Group1,CategoryB,Subscription8,0.6,0.5,0.7,Monthly check
+9,GCP,Group2,CategoryC,Subscription9,0.5,0.2,0.9,Annual summary
+10,AWS,Group3,CategoryA,Subscription10,0.7,0.3,0.4,New data
+11,Azure,Group1,CategoryB,Subscription11,0.6,0.4,0.5,Updated records
+12,GCP,Group2,CategoryC,Subscription12,0.8,0.5,0.6,Year-end review
+13,AWS,Group3,CategoryA,Subscription13,0.9,0.7,0.1,Service metrics
+14,Azure,Group1,CategoryB,Subscription14,0.3,0.6,0.8,Quarterly update
+15,GCP,Group2,CategoryC,Subscription15,0.4,0.5,0.2,Mid-year check
