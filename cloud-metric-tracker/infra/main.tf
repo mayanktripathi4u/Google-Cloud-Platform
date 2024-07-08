@@ -62,6 +62,8 @@ resource "google_cloudfunctions_function" "function" {
   environment_variables = {
     BQ_DATASET = google_bigquery_dataset.dataset.dataset_id
     BQ_TABLE   = google_bigquery_table.table.table_id
+    GOOGLE_CLOUD_PROJECT = var.PROJECT_ID
+
   }
 }
 
