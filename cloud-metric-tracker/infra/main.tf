@@ -21,6 +21,13 @@ resource "google_bigquery_table" "table" {
   schema = file("schemas/bq_schema.json")
 }
 
+resource "google_bigquery_table" "table2" {
+  dataset_id = google_bigquery_dataset.dataset.dataset_id
+  table_id   = "final_cloud_metrics"
+
+  schema = file("schemas/bq_schema2.json")
+}
+
 # Create GCS bucket for Cloud Function source code
 resource "google_storage_bucket" "cf_bucket" {
   name     = "cf_source_code_06july_mt"
@@ -60,8 +67,8 @@ resource "google_cloudfunctions_function" "function" {
   }
 
   environment_variables = {
-    BQ_DATASET = google_bigquery_dataset.dataset.dataset_id
-    BQ_TABLE   = google_bigquery_table.table.table_id
+    BQ_DATASET           = google_bigquery_dataset.dataset.dataset_id
+    BQ_TABLE             = google_bigquery_table.table.table_id
     GOOGLE_CLOUD_PROJECT = var.PROJECT_ID
 
   }

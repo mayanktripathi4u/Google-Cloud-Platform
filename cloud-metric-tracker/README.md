@@ -53,4 +53,34 @@ Upload the sample file to GCS Bucket
 gsutil cp data/sample_cloud_matrix_tracker.csv gs://cloud-metric-tracker/
 ```
 
+Next step is to Convert the Excel File to CSV.
+
+# Convert Excel to CSV
+For this I am going to create a Virtual Environment.
+
+```
+python3 -m venv .venv
+```
+
+Activate a virtual environment
+```
+source .venv/bin/activate
+```
+To confirm the virtual environment is activated, check the location of your Python interpreter:
+```
+which python
+```
+To deactivate a virtual environment
+```
+deactivate
+```
+
+Install below package.
+```
+pip install openpyxl
+```
+
+Python Code can be referenced from [Py Code](/Google-Cloud-Platform/cloud-metric-tracker/src/convert_excel_to_csv.py)
+
+
 
