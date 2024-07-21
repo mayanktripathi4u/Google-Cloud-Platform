@@ -1,0 +1,42 @@
+- name: table_1
+  size: large
+  format: NEWLINE_DELIMITED_JSON
+  columns: []
+  schema:
+    - name: "id"
+      type: "INT64"
+      mode: "NULLABLE"
+    - name: "first_name"
+      type: "STRING"
+      mode: "NULLABLE"
+    - name: "last_name"
+      type: "STRING"
+      mode: "NULLABLE"
+    - name: "dob"
+      type: "DATE"
+      mode: "NULLABLE"
+    - name: "address"
+      type: "RECORD"
+      mode: "REPEATED"
+      field:
+        - name: "status"
+          type: "STRING"
+          mode: "NULLABLE"
+        - name: "address"
+          type: "STRING"
+          mode: "NULLABLE"
+        - name: "city"
+          type: "STRING"
+          mode: "NULLABLE"
+        - name: "state"
+          type: "STRING"
+          mode: "NULLABLE"
+        - name: "zip"
+          type: "INT64"
+          mode: "NULLABLE"
+        - name: "numOfYears"
+          type: "FLOAT64"
+          mode: "NULLABLE"
+
+
+
