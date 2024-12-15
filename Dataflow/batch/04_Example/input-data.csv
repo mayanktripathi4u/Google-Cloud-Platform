@@ -1,0 +1,6 @@
+user_id,first_name,last_name,email,amount
+1,John,Doe,john.doe@example.com,150.75
+2,Jane,Smith,jane.smith@example.com,200.50
+3,Emily,Jones,emily.jones@example.com,125.00
+4,Michael,Brown,michael.brown@example.com,80.25
+5,Anna,Wilson,anna.wilson@example.com,220.00
