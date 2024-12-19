@@ -1,6 +1,8 @@
 # Cloud Function - Local Development and Testing
 Google Cloud Functions, especially Gen 1 functions, can be tested locally using frameworks like the `Functions Framework`. It allows you to run and test Google Cloud Functions locally, mimicking the Cloud Functions environment without needing to deploy them first. Here's a step-by-step guide to help you develop and test your Google Cloud Function locally, specifically for a Pub/Sub trigger using the Functions Framework.
 
+Cloud Functions uses the open-source functions-framework to wrap your functions in a persistent HTTP application. The Function Framework can run on supported platforms including, Cloud Functions, Cloud Run, and local environments.
+
 ## Prerequisites
 1. Google Cloud SDK: Make sure you have the Google Cloud SDK installed and authenticated.
 2. Node.js or Python: Depending on your runtime (Node.js or Python), install the appropriate version.
@@ -140,6 +142,40 @@ curl -s -X POST 'http://localhost:8043/v1/projects/gcphde-prim-dev-data/topics/s
     -H 'Content-Type: application/json' \
     --data '{"messages":[{"data":"eyJmb28iOiJiYXIifQ=="}]}'
 ```
+
+
+# Use Functions Framework in local env
+The first step is to install functions-framework.
+
+After completing the installation, you can start your Cloud Functions script with the following command:
+
+`run functions-framework --target hello_gcs --source script_cloud_functions.py --signature-type cloudevent`
+
+In this example, the main function `hello_gcs` in the script [`script_cloud_functions.py`](./CF_GCS_Trigger/script_cloud_functions.py) file waits for requests with CloudEvent.
+
+Now you can send request with curl command:
+
+```bash
+curl localhost:8080 \
+  -X POST \
+  -H "Content-Type: application/json" \
+  -H "ce-id: 123451234512345" \
+  -H "ce-specversion: 1.0" \
+  -H "ce-time: 2020-01-02T12:34:56.789Z" \
+  -H "ce-type: google.cloud.audit.log.v1.written" \
+  -H "ce-source: //cloudaudit.googleapis.com/projects/PROJECT_ID/logs/data_access" \
+  -d '{
+        "protoPayload": {
+            "resourceName": "projects/_/buckets/test-bucket/objects/object_path.txt",
+            "serviceName": "storage.googleapis.com",
+            "methodName": "storage.objects.create"
+        }
+      }'
+```
+
+You’ll see OK as a result of the curl command and also see the following log in the functions-framework.
+
+You can adjust headers and data that are used in your function according to the trigger. In the example app above, you can get the resourceName in the protoPayload with the following code.
 
 
 
