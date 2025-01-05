@@ -1,0 +1,77 @@
+
+Use Log Analytics for BigQuery Usage Analysis on Google Cloud : https://medium.com/google-cloud/use-log-analytics-for-bigquery-usage-analysis-on-google-cloud-8f5454626c6c
+
+
+ have a Google Dataflow Pipeline that logs JSON similar to the following.
+
+jsonPayload: {
+    metric: "viewings-per-second",
+    time: "2023-03-28 17:16:14",
+    value: 15
+}
+I created a Log-based-metric to extract the value and used it in a Cloud Monitoring Alert with a fixed threshold. My actual requirement though, is to have two thresholds - one during peak hours (6AM - 1AM) and one during off-peak (1AM - 6AM).
+
+How can I create a dynamic threshold, if possible? Perhaps I can use Monitoring Query Language (MQL) or something.
+
+One alternate method I could think of was to create two Log-based-metrics and put the hour condition via Log Query Language (LQL). While testing my query in Log Explorer, this works:
+
+jsonPayload.time>="2023-03-28 06:00:00"
+However, I am unable to figure out how to extract the time alone from the datetime value.
+
+As a last resort, I guess I can make the Dataflow Pipeline log just the hour or time, but was wondering whether there is a better solution.
+
+EDIT:
+
+My current LQL
+
+logName="projects/example-project/logs/dataflow-viewings-per-second"
+jsonPayload.metric="viewings-per-second"
+jsonPayload.time>="2023-03-28 06:00:00"
+
+----------------------------
+
+MQL (Monitoring Query Language)
+```mql
+fetch gcs_bucket
+| metric 'logging.googleapis.com/user/custom_gcs_object_counter'
+| group_by 5m,
+    [value_custom_gcs_object_counter_aggregate:
+       aggregate(value.custom_gcs_object_counter)]
+| every 5m
+| group_by [metric.Bucket, metric.FileName],
+    [value_custom_gcs_object_counter_aggregate_aggregate:
+       aggregate(value_custom_gcs_object_counter_aggregate)]
+| condition val() > 2 '1'
+```
+
+Equivalent PromQL
+```promql
+sum_over_time(logging_custom_gcs_object_counter[5m])
+  by (Bucket, FileName)
+> 2
+```
+
+With Time-Based Thresholds:
+```promql
+sum_over_time(logging_custom_gcs_object_counter[5m])
+  by (Bucket, FileName, time_period)
+> (
+  (time_period == "business_hours") * 5 +
+  (time_period == "off_hours") * 3 +
+  (time_period == "weekend") * 2
+)
+```
+
+
+general:
+```promql
+rate(logging_custom_gcs_object_counter[5m]) 
+> 
+(
+  ((hour() >= 9 and hour() <= 17) and day_of_week() <= 5) * 50 + 
+  ((hour() < 9 or hour() > 17) and day_of_week() <= 5) * 30 + 
+  (day_of_week() > 5) * 20
+)
+```
+ 
+Learn PromQL: https://prometheus.io/docs/prometheus/latest/querying/examples/
