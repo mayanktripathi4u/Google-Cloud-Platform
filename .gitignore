@@ -36,3 +36,8 @@ override.tf.json
 terraform.rc
 *venv
 *test
+.DS_Store
+*__pycache__
+*__pypackages__
+*.dot
+*.drawio
